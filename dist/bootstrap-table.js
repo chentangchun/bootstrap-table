@@ -2470,10 +2470,14 @@
             this.$selectItem.length === this.$selectItem.filter(':checked').length);
 
         if (this.options.height) {
-            var toolbarHeight = this.$toolbar.outerHeight(true),
+          var toolbarHeight = this.$toolbar.outerHeight(true),
                 paginationHeight = this.$pagination.outerHeight(true),
-                height = this.options.height - toolbarHeight - paginationHeight;
+                height = this.options.height;
 
+            if (this.options.height.toString().indexOf("%") != -1) {
+                height = $(window).height() * (parseFloat(this.options.height) / 100);
+            }
+            height = height - toolbarHeight - paginationHeight;
             this.$tableContainer.css('height', height + 'px');
         }
 
